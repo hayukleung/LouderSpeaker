@@ -11,10 +11,32 @@ android {
     versionName "1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
+  signingConfigs {
+    hayukleung {
+      keyAlias "${KEY_ALIAS}"
+      keyPassword "${KEY_PASSWORD}"
+      storeFile file('./hayukleung.jks')
+      storePassword "${STORE_PASSWORD}"
+    }
+  }
   buildTypes {
     release {
       minifyEnabled false
+      shrinkResources true
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      signingConfig signingConfigs.hayukleung
+      ndk {
+        abiFilters "armeabi"
+      }
+    }
+    debug {
+      minifyEnabled false
+      shrinkResources false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      signingConfig signingConfigs.hayukleung
+      ndk {
+        abiFilters "armeabi"
+      }
     }
   }
 }
